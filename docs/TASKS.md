@@ -46,25 +46,25 @@ Trạng thái: ⬜ chưa làm · 🟨 đang làm · ✅ xong (ghi bằng chứng
 
 | ID | Task | File | Đầu ra | Hạn | Phụ thuộc | TT |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| B1 | Đọc 2 split → `apply_split` → làm sạch → loại trùng theo [DATA.md](DATA.md) §4; in số đã loại | `src/data/prepare.py` | `data/processed/reviews.parquet` | T2 23/11 tối | — | ⬜ |
+| B1 | Đọc 2 split → `apply_split` → làm sạch → loại trùng theo [DATA.md](DATA.md) §4; in số đã loại | `src/data/prepare.py` | `data/processed/reviews.parquet` | T2 23/11 tối | — | ✅ |
 | B2 | Test loại trùng: không còn hash chung giữa train/val và test; test đủ 25.000 | `tests/test_prepare.py` | test pass | T2 tối | B1 | ⬜ |
 | B3 | **EDA** sau khi loại trùng: chạy `src.data.eda`; thêm từ phổ biến từng lớp (cột, không dùng biểu đồ tròn); điền [DATA.md](DATA.md) §3–§5 | `src/data/eda.py` | `experiments/results/eda/`, `experiments/plots/eda/` | T2 tối | B1 | ⬜ |
 | B4 | Chọn 100 review từ test có ca khó (phủ định, dài, rating 4/7) | — | `data/sample/sample_100.csv` | T2 tối | B1 | ⬜ |
-| B5 | Baseline Majority + TF-IDF (1–2 gram) + LR, chọn `C` trên val; lưu dự đoán val/test cùng định dạng §4 | `src/models/baseline.py` | `experiments/results/baseline/` | T2 tối (val); test chạy cùng lúc với Đại ở D8 | B1 | ⬜ |
+| B5 | Baseline Majority + TF-IDF (1–2 gram) + LR, chọn `C` trên val; lưu dự đoán val/test cùng định dạng §4 | `src/models/baseline.py` | `experiments/results/baseline/` | T2 tối (val); test chạy cùng lúc với Đại ở D8 | B1 | ✅ |
 | B6 | Demo Gradio: nhập review → nhãn, xác suất, tô màu từ; đo thời gian trên CPU | `src/predict.py`, `src/demo/app.py` | ảnh chụp demo | T4 25/11 10:00 | D7 (checkpoint), T3 (hàm giải thích) | ⬜ |
 
 ### Đại — Mô hình, huấn luyện, monitor, evaluation
 
 | ID | Task | File | Đầu ra | Hạn | Phụ thuộc | TT |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| D1 | Tokenizer (lowercase, giữ `not`, `n't`, `!`, `?`, không bỏ stopword), vocab chỉ từ train, Dataset/DataLoader trả độ dài thật | `src/data/tokenizer.py`, `vocab.py`, `dataset.py` | test pass | T2 tối | B1 (có thể code trước trên cây aclImdb giả) | ⬜ |
-| D2 | `SentimentRNN` (LSTM/GRU, 1/2 chiều, `pack_padded_sequence`, trả logit) | `src/models/rnn.py` | test shape, overfit 1 batch, save/load | T2 tối | — | ⬜ |
-| D3 | GloVe 6B 100d lọc theo vocab, ghi tỷ lệ phủ | `src/models/glove.py` | `data/processed/glove_100d_vocab.npy` | T2 tối | D1 | ⬜ |
-| D4 | Vòng train + early stopping theo **val acc** + **monitor** (`history.csv`, learning curve) theo [phases/TRAINING.md](phases/TRAINING.md) | `src/train.py`, `src/training/monitor.py`, `configs/*.yaml` | chạy 1 epoch trên 500 mẫu không lỗi | T2 tối | D1, D2 | ⬜ |
-| D5 | Pilot M1 trên Kaggle → chốt `max_len`, trần epoch, patience (ghi lý do vào progress) | — | log pilot | T3 24/11 sáng | B1, D4 | ⬜ |
-| D6 | M1–M4b × 3 seed (42, 123, 2025); bảng so sánh val; hình learning curve | — | `experiments/results/<exp>/`, `experiments/plots/training/` | T3 **14:00 (mốc dừng)** | D5 | ⬜ |
-| D7 | Mở rộng A: `max_len` 200/400/600 + cách cắt (1 seed); B (nếu đạt mốc dừng): attention pooling × 3 seed | — | bảng `max_len` | T3 chiều–tối | D6 | ⬜ |
-| D8 | **Evaluation**: chốt mô hình theo val → chạy test **một lần**; metric đủ, confusion matrix, ROC, McNemar vs B1, số tham số, thời gian; xuất `predictions_test.csv` | `src/evaluate.py`, `src/eval/metrics.py` | `experiments/results/comparison_*.csv`, `mcnemar.json`, file dự đoán | T3 tối | D6, B5 | ⬜ |
+| D1 | Tokenizer (lowercase, giữ `not`, `n't`, `!`, `?`, không bỏ stopword), vocab chỉ từ train, Dataset/DataLoader trả độ dài thật | `src/data/tokenizer.py`, `vocab.py`, `dataset.py` | test pass | T2 tối | B1 (có thể code trước trên cây aclImdb giả) | ✅ |
+| D2 | `SentimentRNN` (LSTM/GRU, 1/2 chiều, `pack_padded_sequence`, trả logit) | `src/models/rnn.py` | test shape, overfit 1 batch, save/load | T2 tối | — | ✅ |
+| D3 | GloVe 6B 100d lọc theo vocab, ghi tỷ lệ phủ | `src/models/glove.py` | `data/processed/glove_100d_vocab.npy` | T2 tối | D1 | ✅ |
+| D4 | Vòng train + early stopping theo **val acc** + **monitor** (`history.csv`, learning curve) theo [phases/TRAINING.md](phases/TRAINING.md) | `src/train.py`, `src/training/monitor.py`, `configs/*.yaml` | chạy 1 epoch trên 500 mẫu không lỗi | T2 tối | D1, D2 | ✅ |
+| D5 | Pilot M1 trên Kaggle → chốt `max_len`, trần epoch, patience (ghi lý do vào progress) | `notebooks/test.ipynb` | log pilot | T3 24/11 sáng | B1, D4 | ✅ |
+| D6 | M1–M4b × 3 seed (42, 123, 2025); bảng so sánh val; hình learning curve | `notebooks/test.ipynb`, `src/train.py` | `experiments/results/<exp>/`, `experiments/plots/training/` | T3 **14:00 (mốc dừng)** | D5 | 🟨 |
+| D7 | Mở rộng A: `max_len` 200/400/600 + cách cắt (1 seed); B (nếu đạt mốc dừng): attention pooling × 3 seed | `notebooks/test.ipynb` | bảng `max_len` | T3 chiều–tối | D6 | 🟨 |
+| D8 | **Evaluation**: chốt mô hình theo val → chạy test **một lần**; metric đủ, confusion matrix, ROC, McNemar vs B1, số tham số, thời gian; xuất `predictions_test.csv` | `src/evaluate.py`, `src/eval/metrics.py`, `notebooks/test.ipynb` | `experiments/results/comparison_*.csv`, `mcnemar.json`, file dự đoán | T3 tối | D6, B5 | 🟨 |
 
 ### Thư — Chốt, phân tích lỗi, báo cáo
 

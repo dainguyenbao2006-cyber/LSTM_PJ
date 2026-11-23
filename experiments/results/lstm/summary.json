@@ -1,0 +1,32 @@
+{
+  "exp_name": "lstm",
+  "n_seeds": 1,
+  "seeds": [
+    42
+  ],
+  "best_val_acc": {
+    "mean": 0.976,
+    "std": 0.0,
+    "formatted": "97.60 ± 0.00%"
+  },
+  "val_loss_at_best": {
+    "mean": 0.4449,
+    "std": 0.0,
+    "formatted": "0.4449 ± 0.0000"
+  },
+  "val_f1_at_best": {
+    "mean": 0.0,
+    "std": 0.0,
+    "formatted": "0.00 ± 0.00%"
+  },
+  "train_acc_at_best": {
+    "mean": 0.702,
+    "std": 0.0,
+    "formatted": "70.20 ± 0.00%"
+  },
+  "total_train_seconds": {
+    "mean": 50.65,
+    "std": 0.0,
+    "formatted": "50.6500 ± 0.0000"
+  }
+}

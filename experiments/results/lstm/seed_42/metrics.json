@@ -1,0 +1,18 @@
+{
+  "exp_name": "lstm",
+  "seed": 42,
+  "best_epoch": 1,
+  "stopped_epoch": 1,
+  "best_val_acc": 0.976,
+  "total_train_seconds": 50.65,
+  "hardware": "CPU",
+  "parameters": {
+    "total": 674989,
+    "trainable": 674989
+  },
+  "val_loss_at_best": 0.4449,
+  "val_f1_at_best": 0.0,
+  "train_acc_at_best": 0.702,
+  "train_loss_at_best": 0.6065,
+  "overfit_gap_at_best": -0.274
+}
