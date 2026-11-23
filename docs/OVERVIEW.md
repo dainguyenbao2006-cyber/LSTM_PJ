@@ -6,31 +6,32 @@
 - **Detailed Plan**: §1 Roadmap theo phase; §2 Phần mở rộng; §3 Kiến trúc; §4 Checkpoint; §5 Ràng buộc phần cứng.
 - **References**: [PURPOSE.md](PURPOSE.md) §10, [phases/](phases/), [progress/](progress/).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:02:29+07:00
 
 ---
 
 ## 1. Roadmap theo phase
 
-Tuần theo [PURPOSE.md](PURPOSE.md) §10 (6 tuần).
+Hạn nộp: **thứ 4, 25/11/2026, trước 14:00**. Mốc theo [PURPOSE.md](PURPOSE.md) §10.
 
-| # | Phase | Đặc tả | Tiến độ | Người chính | Tuần | Trạng thái |
+| # | Phase | Đặc tả | Tiến độ | Người chính | Hạn | Trạng thái |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Chuẩn bị dữ liệu & split | [DATA_PREP](phases/DATA_PREP.md) | [status](progress/DATA_PREP_STATUS.md) | TV1 | 1 | To Do |
-| 2 | Baseline Majority + TF-IDF + LR | [BASELINE](phases/BASELINE.md) | [status](progress/BASELINE_STATUS.md) | TV1 | 1 | To Do |
-| 3 | Định nghĩa mô hình | [MODEL](phases/MODEL.md) | [status](progress/MODEL_STATUS.md) | TV2 | 2–3 | To Do |
-| 4 | Huấn luyện (3 seed) | [TRAINING](phases/TRAINING.md) | [status](progress/TRAINING_STATUS.md) | TV2 | 2–3 | To Do |
-| 5 | Đánh giá, phân tích lỗi, giải thích | [EVAL](phases/EVAL.md) | [status](progress/EVAL_STATUS.md) | TV3 | 4 | To Do |
-| 6 | Demo, README, báo cáo & slide | [DEMO_REPORT](phases/DEMO_REPORT.md) | [status](progress/DEMO_REPORT_STATUS.md) | TV3, cả nhóm | 5–6 | To Do |
+| 1 | Chuẩn bị dữ liệu & split | [DATA_PREP](phases/DATA_PREP.md) | [status](progress/DATA_PREP_STATUS.md) | Bảo | T2 23/11 tối | To Do |
+| 2 | Baseline Majority + TF-IDF + LR | [BASELINE](phases/BASELINE.md) | [status](progress/BASELINE_STATUS.md) | Bảo | T2 23/11 tối | To Do |
+| 3 | Định nghĩa mô hình | [MODEL](phases/MODEL.md) | [status](progress/MODEL_STATUS.md) | Đại | T2 23/11 tối | To Do |
+| 4 | Huấn luyện (3 seed) | [TRAINING](phases/TRAINING.md) | [status](progress/TRAINING_STATUS.md) | Đại | T3 24/11, mốc dừng 14:00 | To Do |
+| 5 | Đánh giá, phân tích lỗi, giải thích | [EVAL](phases/EVAL.md) | [status](progress/EVAL_STATUS.md) | Đại (test), Thư (phân tích lỗi) | T3 24/11 tối | To Do |
+| 6 | Demo, README, báo cáo & slide | [DEMO_REPORT](phases/DEMO_REPORT.md) | [status](progress/DEMO_REPORT_STATUS.md) | Bảo (demo), Thư (báo cáo) | T4 25/11 trước 14:00 | To Do |
 
-## 2. Phần mở rộng (tuần 5, nếu kịp)
+## 2. Phần mở rộng (chia mức theo chi phí; Thư chốt 23/11: giữ hết, tốn thời gian quá thì để sau)
 
-| ID | Việc | Thí nghiệm | Người | Trạng thái |
-| :--- | :--- | :--- | :--- | :--- |
-| E1 | Attention pooling trên BiLSTM | EXP-06 | TBD | To Do |
-| E2 | Ablation `max_len` 200 / 400 / 600 | EXP-07 | TBD | To Do |
-| E3 | Fine-tune DistilBERT (mốc tham chiếu) | EXP-08 | TBD | To Do |
-| E4 | Đánh giá chéo Rotten Tomatoes | EXP-09 | TBD | To Do |
+| ID | Việc | Mức | Thí nghiệm | Người | Khi nào | Trạng thái |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| E3 | DistilBERT (mốc tham chiếu) — **không train lại**, trích kết quả Lab 3 (cùng IMDb, cùng split) | A | — | Thư (khi viết báo cáo) | T4 | To Do |
+| E2 | `max_len` 200 / 400 / 600 + cách cắt (đầu / cuối / đầu + cuối), mô hình tốt nhất, 1 seed | A | EXP-07 | Đại | T3 chiều | To Do |
+| — | Grid nhỏ M1 (hidden 128/256 × dropout 0,3/0,5, 1 seed) — chỉ khi pilot M1 < 85% val | A, có điều kiện | — | Đại | T3 sáng | To Do |
+| E1 | Attention pooling trên BiLSTM (đối chiếu với occlusion, không dùng attention một mình để giải thích) | B | EXP-06 | Đại | T3 tối, nếu đạt mốc dừng 14:00 | To Do |
+| E4 | Đánh giá chéo Rotten Tomatoes | C — để sau | EXP-09 | — | Ghi vào "Hướng phát triển" | Để sau |
 
 ## 3. Kiến trúc
 

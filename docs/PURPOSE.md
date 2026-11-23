@@ -6,7 +6,7 @@
 - **Detailed Plan**: §1–§10 theo mẫu đăng ký; §11 Yêu cầu báo cáo cuối kỳ; §12 Định nghĩa "xong".
 - **References**: [OVERVIEW.md](OVERVIEW.md), [DATA.md](DATA.md), [MODELS.md](MODELS.md), [REPORT_CHECKLIST.md](REPORT_CHECKLIST.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:02:29+07:00
 
 ---
 
@@ -143,24 +143,23 @@ Chi tiết và giao thức chia dữ liệu: [DATA.md](DATA.md).
 
 | Thành viên | Nhiệm vụ chính | Phase |
 | :--- | :--- | :--- |
-| TV1 `[Họ tên, MSSV]` | Dữ liệu: tải, EDA, làm sạch, kiểm tra trùng lặp, chia theo phim, `DATA.md`; baseline TF-IDF + LR | DATA_PREP, BASELINE |
-| TV2 `[Họ tên, MSSV]` | Mô hình và huấn luyện: LSTM, GRU, BiLSTM, GloVe; script train và config; chạy 3 seed | MODEL, TRAINING |
-| TV3 `[Họ tên, MSSV]` | Đánh giá, phân tích lỗi, giải thích mô hình; demo Gradio; README; báo cáo và slide | EVAL, DEMO_REPORT |
+| Bảo `[MSSV]` | Dữ liệu: loại trùng, EDA, `DATA.md`, dữ liệu mẫu; baseline Majority + TF-IDF + LR; demo Gradio | DATA_PREP, BASELINE, DEMO_REPORT (demo) |
+| Đại `[MSSV]` | Mô hình và huấn luyện: tokenizer, vocab, LSTM, GRU, BiLSTM, GloVe; chạy 3 seed trên Kaggle; chạy test một lần, McNemar; xuất file dự đoán | MODEL, TRAINING, EVAL (test) |
+| Thư `[MSSV]` | Chốt quyết định, duyệt PR; 30 câu tự viết; phân tích lỗi, giải thích mô hình; README, notebook, báo cáo (tiếng Việt + tiếng Anh), slide | EVAL (phân tích lỗi), DEMO_REPORT (báo cáo) |
 
-Cả nhóm cùng review code và viết báo cáo; mỗi người tự trình bày được phần của mình.
+Cả nhóm cùng review code; mỗi người tự trình bày được phần của mình.
 
 ### Mốc hoàn thành
 
-| Tuần | Mốc |
-| :--- | :--- |
-| 1 | Nộp đăng ký; tải dữ liệu, EDA, kiểm tra trùng lặp, chia train/val; chạy baseline TF-IDF + LR |
-| 2 | Pipeline PyTorch; LSTM bắt buộc đạt ≥ 85% trên val |
-| 3 | GRU, BiLSTM, GloVe; tinh chỉnh siêu tham số trên val; chạy 3 seed |
-| 4 | Chốt mô hình, chạy test một lần; phân tích lỗi theo bộ tình huống; giải thích mô hình |
-| 5 | Demo, README, phần mở rộng (nếu kịp) |
-| 6 | Hoàn thiện báo cáo và slide, tập dượt trả lời phản biện |
+Hạn nộp: **thứ 4, 25/11/2026, trước 14:00** (nộp PDF + notebook).
 
-Ngày cụ thể: `[điền theo deadline của lớp]`.
+| Khi nào | Mốc |
+| :--- | :--- |
+| T2 23/11 tối | Dữ liệu sạch + EDA + `DATA.md`; baseline trên val; `SentimentRNN` + test pass; 30 câu tự viết xong (trước khi chạy mô hình) |
+| T3 24/11 sáng | Pilot LSTM trên Kaggle → chốt `max_len`, trần epoch, patience |
+| T3 24/11 chiều | 5 cấu hình × 3 seed; bảng so sánh trên val (mốc dừng 14:00); thí nghiệm `max_len` |
+| T3 24/11 tối | Chốt mô hình, chạy test một lần; phân tích lỗi theo bộ tình huống; giải thích mô hình |
+| T4 25/11 sáng | Demo, README, notebook, báo cáo tiếng Việt → dịch tiếng Anh; nộp trước 14:00 |
 
 ### Phụ thuộc và rủi ro
 

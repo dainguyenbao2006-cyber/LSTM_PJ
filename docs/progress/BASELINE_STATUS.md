@@ -6,7 +6,7 @@
 - **Detailed Plan**: Header; Checklist; Log; Blockers; Decisions; Next step; Links.
 - **References**: [../phases/BASELINE.md](../phases/BASELINE.md), [../OVERVIEW.md](../OVERVIEW.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T11:21:04+07:00
+- **Last Updated**: 2026-11-23T10:00:45+07:00
 
 ---
 
@@ -14,9 +14,10 @@
 
 - **Title:** Baseline Majority + TF-IDF + LR
 - **Date created:** 2026-11-05
-- **Last updated:** 2026-11-05
+- **Last updated:** 2026-11-23
 - **Status:** To Do
-- **Owner:** TV1
+- **Owner:** Bảo
+- **Hạn:** T2 23/11 tối
 - **Phase doc:** [../phases/BASELINE.md](../phases/BASELINE.md)
 
 ## Checklist

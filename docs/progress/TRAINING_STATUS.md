@@ -6,7 +6,7 @@
 - **Detailed Plan**: Header; Checklist; Log; Blockers; Decisions; Next step; Links.
 - **References**: [../phases/TRAINING.md](../phases/TRAINING.md), [../OVERVIEW.md](../OVERVIEW.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T11:21:04+07:00
+- **Last Updated**: 2026-11-23T10:00:45+07:00
 
 ---
 
@@ -14,9 +14,10 @@
 
 - **Title:** Huấn luyện
 - **Date created:** 2026-11-05
-- **Last updated:** 2026-11-05
+- **Last updated:** 2026-11-23
 - **Status:** To Do
-- **Owner:** TV2
+- **Owner:** Đại
+- **Hạn:** T3 24/11 — mốc dừng 14:00: chưa xong 5 cấu hình × 3 seed thì bỏ attention pooling
 - **Phase doc:** [../phases/TRAINING.md](../phases/TRAINING.md)
 
 ## Checklist

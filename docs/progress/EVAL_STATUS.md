@@ -6,7 +6,7 @@
 - **Detailed Plan**: Header; Checklist; Log; Blockers; Decisions; Next step; Links.
 - **References**: [../phases/EVAL.md](../phases/EVAL.md), [../OVERVIEW.md](../OVERVIEW.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T11:21:04+07:00
+- **Last Updated**: 2026-11-23T10:00:45+07:00
 
 ---
 
@@ -14,9 +14,10 @@
 
 - **Title:** Đánh giá, phân tích lỗi & giải thích mô hình
 - **Date created:** 2026-11-05
-- **Last updated:** 2026-11-05
+- **Last updated:** 2026-11-23
 - **Status:** To Do
-- **Owner:** TV3
+- **Owner:** Đại (chạy test một lần, metric, McNemar, xuất file dự đoán); Thư (phân tích lỗi, giải thích mô hình, giới hạn)
+- **Hạn:** T3 24/11 tối
 - **Phase doc:** [../phases/EVAL.md](../phases/EVAL.md)
 
 ## Checklist

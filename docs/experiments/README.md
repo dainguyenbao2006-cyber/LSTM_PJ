@@ -6,7 +6,7 @@
 - **Detailed Plan**: §1 Quy tắc; §2 Chỉ mục; §3 Bảng kết quả.
 - **References**: [EXPERIMENT_TEMPLATE.md](EXPERIMENT_TEMPLATE.md), [../MODELS.md](../MODELS.md), [../PURPOSE.md](../PURPOSE.md) §6–§7.
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:00:45+07:00
 
 ---
 
@@ -21,11 +21,11 @@
 
 | ID | Tiêu đề | Biến thay đổi so với trước | Người | Trạng thái | File |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| EXP-01 | Baseline Majority + TF-IDF + LR | — | TV1 | To Do | `EXP_01_BASELINE.md` |
-| EXP-02 | LSTM | mô hình RNN đầu tiên | TV2 | To Do | `EXP_02_LSTM.md` |
-| EXP-03 | GRU | LSTM → GRU | TV2 | To Do | `EXP_03_GRU.md` |
-| EXP-04 | BiLSTM | 1 chiều → 2 chiều | TV2 | To Do | `EXP_04_BILSTM.md` |
-| EXP-05 | BiLSTM + GloVe | embedding ngẫu nhiên → GloVe (đóng băng / fine-tune) | TV2 | To Do | `EXP_05_BILSTM_GLOVE.md` |
+| EXP-01 | Baseline Majority + TF-IDF + LR | — | Bảo | To Do | `EXP_01_BASELINE.md` |
+| EXP-02 | LSTM | mô hình RNN đầu tiên | Đại | To Do | `EXP_02_LSTM.md` |
+| EXP-03 | GRU | LSTM → GRU | Đại | To Do | `EXP_03_GRU.md` |
+| EXP-04 | BiLSTM | 1 chiều → 2 chiều | Đại | To Do | `EXP_04_BILSTM.md` |
+| EXP-05 | BiLSTM + GloVe | embedding ngẫu nhiên → GloVe (đóng băng / fine-tune) | Đại | To Do | `EXP_05_BILSTM_GLOVE.md` |
 | EXP-06 | (Mở rộng) Attention pooling | hidden cuối → attention pooling | TBD | To Do | `EXP_06_ATTENTION.md` |
 | EXP-07 | (Mở rộng) Ablation `max_len` | `max_len` 200 / 400 / 600 | TBD | To Do | `EXP_07_MAXLEN.md` |
 | EXP-08 | (Mở rộng) DistilBERT | RNN → Transformer fine-tune | TBD | To Do | `EXP_08_DISTILBERT.md` |

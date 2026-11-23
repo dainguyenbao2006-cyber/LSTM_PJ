@@ -6,7 +6,7 @@
 - **Detailed Plan**: Header; Goals; Input/Output; How to do it; Detailed plan / gotchas; Verification gates; Links.
 - **References**: [OVERVIEW.md](../OVERVIEW.md), [PURPOSE.md](../PURPOSE.md) §4, §7, §9.
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:02:29+07:00
 
 ---
 
@@ -14,11 +14,11 @@
 
 - **Title:** Đánh giá, phân tích lỗi & giải thích mô hình
 - **Date created:** 2026-11-05
-- **Last updated:** 2026-11-05
+- **Last updated:** 2026-11-23
 - **Description:** Đánh giá test một lần, so sánh với baseline, phân tích lỗi 7 nhóm, giải thích mô hình.
 - **Status:** To Do
-- **Owner:** TV3
-- **Tuần:** 4
+- **Owner:** Đại (chạy test một lần, metric, McNemar, xuất file dự đoán); Thư (phân tích lỗi, giải thích mô hình, giới hạn)
+- **Hạn:** T3 24/11 tối
 
 ## Goals / Purpose
 
@@ -27,7 +27,8 @@
 
 ## Input / Output
 
-- **Input:** checkpoint cuối mỗi mô hình (3 seed), `data/splits/test.csv`, `data/sample/handwritten_30.csv`.
+- **Input:** checkpoint cuối mỗi mô hình (3 seed), `data/processed/reviews.parquet` (split test), `data/sample/handwritten_30.csv` (Thư viết).
+- **Bàn giao Đại → Thư:** `experiments/results/<exp>/predictions_<split>.csv`, mỗi dòng một review, cột `uid, text, label, rating, prob, pred, n_tokens, n_unk, was_truncated`. Thư phân tích lỗi từ file này, không chạy lại mô hình.
 - **Output:**
   - `experiments/results/<exp>/seed_<s>/test_metrics.json`, `experiments/results/<exp>/test_summary.json`.
   - `experiments/results/<exp>/predictions.csv` (cột `text,label,prob,pred,rating,length,case_type`).

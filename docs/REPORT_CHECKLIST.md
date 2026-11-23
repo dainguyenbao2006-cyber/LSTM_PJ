@@ -6,7 +6,7 @@
 - **Detailed Plan**: §1 Yêu cầu báo cáo; §2 Mục tiêu đăng ký M1–M6; §3 Yêu cầu đăng ký đề tài; §4 Kiểm tra trước khi nộp.
 - **References**: [PURPOSE.md](PURPOSE.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:00:45+07:00
 
 ---
 
@@ -14,13 +14,13 @@
 
 | # | Yêu cầu | Artifact | Người | Trạng thái |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | Báo cáo vấn đề và phạm vi | [PURPOSE.md](PURPOSE.md) §3, §6 | TV3 | Chưa |
-| 2 | Dữ liệu mẫu và mô tả | [DATA.md](DATA.md), `data/sample/sample_100.csv` | TV1 | Chưa |
+| 1 | Báo cáo vấn đề và phạm vi | [PURPOSE.md](PURPOSE.md) §3, §6 | Thư | Chưa |
+| 2 | Dữ liệu mẫu và mô tả | [DATA.md](DATA.md), `data/sample/sample_100.csv` | Bảo | Chưa |
 | 3 | Mã nguồn | `src/`, `configs/`, `tests/` | Cả nhóm | Chưa |
-| 4 | Hướng dẫn cài đặt/chạy | [README.md](../README.md) §3–§4 | TV3 | Chưa |
-| 5 | Demo | `src/demo/`, `notebooks/demo.ipynb`, video/ảnh chụp demo | TV3 | Chưa |
-| 6 | Kết quả so sánh với baseline | [experiments/README.md](experiments/README.md) | TV2 | Chưa |
-| 7 | Phân tích lỗi và giới hạn | [phases/EVAL.md](phases/EVAL.md), [DATA.md](DATA.md) §9 | TV3 | Chưa |
+| 4 | Hướng dẫn cài đặt/chạy | [README.md](../README.md) §3–§4 | Thư | Chưa |
+| 5 | Demo | `src/demo/`, `notebooks/demo.ipynb`, video/ảnh chụp demo | Bảo | Chưa |
+| 6 | Kết quả so sánh với baseline | [experiments/README.md](experiments/README.md) | Đại | Chưa |
+| 7 | Phân tích lỗi và giới hạn | [phases/EVAL.md](phases/EVAL.md), [DATA.md](DATA.md) §9 | Thư | Chưa |
 
 ## 2. Mục tiêu đăng ký M1–M6
 

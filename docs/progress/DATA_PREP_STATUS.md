@@ -6,7 +6,7 @@
 - **Detailed Plan**: Header; Checklist; Log; Blockers; Decisions; Next step; Links.
 - **References**: [../phases/DATA_PREP.md](../phases/DATA_PREP.md), [../OVERVIEW.md](../OVERVIEW.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T11:21:04+07:00
+- **Last Updated**: 2026-11-23T10:02:29+07:00
 
 ---
 
@@ -14,9 +14,10 @@
 
 - **Title:** Chuẩn bị dữ liệu & split
 - **Date created:** 2026-11-05
-- **Last updated:** 2026-11-05
+- **Last updated:** 2026-11-23
 - **Status:** To Do
-- **Owner:** TV1
+- **Owner:** Bảo
+- **Hạn:** T2 23/11 tối — giao `reviews.parquet` cho Đại
 - **Phase doc:** [../phases/DATA_PREP.md](../phases/DATA_PREP.md)
 
 ## Checklist
@@ -31,6 +32,7 @@ Chỉ đánh dấu `[x]` khi có bằng chứng (lệnh, đường dẫn output,
 ## Log
 
 - 2026-11-05: Tạo file.
+- 2026-11-23: Dựng repo (nhánh `chore/repo-setup`): chép từ Lab 3 phần tải/đọc IMDb, làm sạch, hash, file split, hàm EDA + test (`python -m pytest`: 17 passed). Chạy thử `python -m src.data.eda` trên dữ liệu thật: 22.499 / 2.501 / 25.000 review, 123 review test trùng train. Kết quả chạy thử không commit — Bảo chạy lại sau khi loại trùng.
 
 ## Blockers
 

@@ -6,7 +6,7 @@
 - **Detailed Plan**: Header; Checklist; Log; Blockers; Decisions; Next step; Links.
 - **References**: [../phases/DEMO_REPORT.md](../phases/DEMO_REPORT.md), [../OVERVIEW.md](../OVERVIEW.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T11:21:04+07:00
+- **Last Updated**: 2026-11-23T10:00:45+07:00
 
 ---
 
@@ -14,9 +14,10 @@
 
 - **Title:** Demo, README, báo cáo & slide
 - **Date created:** 2026-11-05
-- **Last updated:** 2026-11-05
+- **Last updated:** 2026-11-23
 - **Status:** To Do
-- **Owner:** TV3, cả nhóm
+- **Owner:** Bảo (demo Gradio); Thư (README, notebook, báo cáo PDF tiếng Việt + tiếng Anh, slide)
+- **Hạn:** T4 25/11 — nộp trước 14:00
 - **Phase doc:** [../phases/DEMO_REPORT.md](../phases/DEMO_REPORT.md)
 
 ## Checklist

@@ -6,7 +6,7 @@
 - **Detailed Plan**: §1 Mục tiêu; §2 Cấu trúc thư mục; §3 Cài đặt; §4 Lệnh chạy; §5 Kết quả; §6 Tài liệu.
 - **References**: [docs/PURPOSE.md](docs/PURPOSE.md), [docs/README.md](docs/README.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:02:29+07:00
 
 ---
 
@@ -53,8 +53,19 @@ pip install -r requirements.txt
 
 Lệnh cụ thể ghi vào đây khi code từng phase xong. Thứ tự: tải dữ liệu → chia split → baseline → train (3 seed) → evaluate → demo. Xem [docs/OVERVIEW.md](docs/OVERVIEW.md).
 
+Đã chạy được (chạy từ gốc repo):
+
 ```bash
-python -m pytest tests/
+python -m pytest                     # test offline, không cần dữ liệu thật
+python -m src.data.download          # tải aclImdb (84 MB) vào data/raw/, đọc 2 split, lưu bộ đệm parquet
+python -m src.data.eda               # EDA train / val / test → experiments/results/eda, experiments/plots/eda
+```
+
+Split train/val dùng lại của Lab 3: `data/splits/train_val_split.json` (22.499 / 2.501, chia theo phim) — xem [docs/DATA.md](docs/DATA.md) §3.
+
+Dự kiến:
+
+```bash
 python -m src.train --config configs/lstm.yaml --seed 42      # dự kiến
 python -m src.evaluate --exp lstm --split val                  # dự kiến
 python -m src.predict "not bad at all"                         # dự kiến

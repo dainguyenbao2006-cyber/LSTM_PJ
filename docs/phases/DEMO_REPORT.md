@@ -6,7 +6,7 @@
 - **Detailed Plan**: Header; Goals; Input/Output; How to do it; Detailed plan / gotchas; Verification gates; Links.
 - **References**: [OVERVIEW.md](../OVERVIEW.md), [PURPOSE.md](../PURPOSE.md) §4 (M5), §8.
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:00:45+07:00
 
 ---
 
@@ -14,11 +14,11 @@
 
 - **Title:** Demo, README, báo cáo & slide
 - **Date created:** 2026-11-05
-- **Last updated:** 2026-11-05
+- **Last updated:** 2026-11-23
 - **Description:** Demo Gradio + notebook demo, README, báo cáo cuối kỳ và slide.
 - **Status:** To Do
-- **Owner:** TV3 (demo, README), cả nhóm (báo cáo, slide)
-- **Tuần:** 5 (demo, README), 6 (báo cáo, slide, tập dượt)
+- **Owner:** Bảo (demo Gradio); Thư (README, notebook, báo cáo PDF tiếng Việt + tiếng Anh, slide)
+- **Hạn:** T4 25/11 — nộp trước 14:00
 
 ## Goals / Purpose
 

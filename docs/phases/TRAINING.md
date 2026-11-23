@@ -6,7 +6,7 @@
 - **Detailed Plan**: Header; Goals; Input/Output; How to do it; Detailed plan / gotchas; Verification gates; Links.
 - **References**: [OVERVIEW.md](../OVERVIEW.md), [PURPOSE.md](../PURPOSE.md) §4 (M6), §7.
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:00:45+07:00
 
 ---
 
@@ -14,11 +14,11 @@
 
 - **Title:** Huấn luyện
 - **Date created:** 2026-11-05
-- **Last updated:** 2026-11-05
+- **Last updated:** 2026-11-23
 - **Description:** Vòng train dùng chung cho mọi mô hình RNN, có early stopping, lưu checkpoint tốt nhất, chạy 3 seed.
 - **Status:** To Do
-- **Owner:** TV2
-- **Tuần:** 2–3
+- **Owner:** Đại
+- **Hạn:** T3 24/11 — mốc dừng 14:00: chưa xong 5 cấu hình × 3 seed thì bỏ attention pooling
 
 ## Goals / Purpose
 

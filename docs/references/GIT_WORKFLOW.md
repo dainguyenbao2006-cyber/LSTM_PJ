@@ -2,11 +2,11 @@
 
 - **Motivation/Background**: Ba người cùng sửa một repo dễ ghi đè code nhau và commit nhầm dữ liệu lớn.
 - **Purpose**: Quy ước nhánh, commit, PR và điều cấm.
-- **Overview Pipeline**: Nhánh từ main → commit nhỏ → PR → TV1 review → merge.
+- **Overview Pipeline**: Nhánh từ main → commit nhỏ → PR → một bạn khác review → merge.
 - **Detailed Plan**: §1 Nhánh; §2 Commit; §3 Pull request; §4 Điều cấm.
 - **References**: [../../README.md](../../README.md)
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T11:21:04+07:00
+- **Last Updated**: 2026-11-23T10:00:45+07:00
 
 ---
 
@@ -28,7 +28,7 @@ Theo Conventional Commits: `<type>(<scope>): <mô tả ngắn>`.
 
 - Mô tả PR gồm: làm gì, vì sao, cách kiểm tra (lệnh + kết quả), file `progress/` đã cập nhật.
 - Chạy `python -m pytest tests/` trước khi mở PR.
-- Cả nhóm cùng review code: TV1 review PR của TV2, TV3; TV2 review PR của TV1. Mỗi người phải tự giải thích được code mình viết.
+- Cả nhóm cùng review code: Bảo và Đại review chéo PR của nhau; Thư duyệt và merge mọi PR vào `main`. Mỗi người phải tự giải thích được code mình viết.
 
 ## 4. Điều cấm
 

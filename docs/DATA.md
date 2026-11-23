@@ -6,7 +6,7 @@
 - **Detailed Plan**: §1 Nguồn; §2 Cấu trúc file; §3 Giao thức split; §4 Trùng lặp & rò rỉ; §5 EDA; §6 Vocab & GloVe; §7 Dữ liệu mẫu; §8 Dữ liệu ngoài miền; §9 Hạn chế.
 - **References**: [PURPOSE.md](PURPOSE.md) §5, §9; [phases/DATA_PREP.md](phases/DATA_PREP.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:01:39+07:00
 
 ---
 
@@ -35,25 +35,32 @@ aclImdb/
 
 ## 3. Giao thức split
 
-| Split | Nguồn | Kích thước | Ghi chú |
+**Dùng lại split của Lab 3** (Thư chốt 2026-11-23): `data/splits/train_val_split.json`, chép từ Lab-DL `labs/lab3/data/splits/train_val_split.json` (nhánh `feat/lab3-redo`). File chỉ chứa danh sách `uid`, được commit.
+
+| Split | Nguồn | Kích thước (trước khi loại trùng) | Ghi chú |
 | :--- | :--- | :--- | :--- |
-| train | 90% `train/` (sau khi loại trùng) | TBD (~22.500) | Dùng để train và fit vocab/TF-IDF |
-| val | 10% `train/` (sau khi loại trùng) | TBD (~2.500) | Chọn epoch, siêu tham số, checkpoint |
+| train | `train/`, các uid trong `train_uids` | 22.499 | Dùng để train và fit vocab/TF-IDF |
+| val | `train/`, các uid trong `val_uids` | 2.501 (pos 50,02%) | Chọn epoch, siêu tham số, checkpoint |
 | test | toàn bộ `test/` | 25.000 | Giữ nguyên; chỉ chạy một lần cho số cuối |
 
-- Chia val theo nhóm `movie_url` (group split), cố gắng giữ tỷ lệ nhãn 50/50 (`StratifiedGroupKFold` hoặc tương đương), `seed = 42`.
-- Split cố định một lần cho mọi thí nghiệm; 3 seed huấn luyện (42, 123, 2025) **không** đổi split.
+- Cách Lab 3 tạo file: `StratifiedGroupKFold(n_splits=10, shuffle=True, random_state=42)`, lấy fold 0 làm val. Nhóm = mã phim, **gộp thêm review trùng nội dung** (union-find) để cả cặp trùng nằm cùng một phía. Kết quả: `groups_in_both = 0`. Code: `src/data/split.py`.
+- Lý do dùng lại: train/val giống hệt Lab 3 nên số DistilBERT của Lab 3 so trực tiếp được với LSTM; split đã kiểm; không tốn thời gian làm lại.
+- Split cố định cho mọi thí nghiệm; 3 seed huấn luyện (42, 123, 2025) **không** đổi split.
+- Loại review trùng (§4) làm **sau** khi áp split → số train/val cuối nhỏ hơn bảng trên một chút; ghi số cuối vào bảng §4.
 - Vocab và TF-IDF chỉ fit trên train, không fit trên val/test.
-- CSV split cột: `text`, `label`, `rating`, `movie_url`, `source_file`.
+- Bàn giao cho mô hình: `data/processed/reviews.parquet` (không commit), cột `uid, split, text, text_clean, label, rating, movie_id` (`split` ∈ train/val/test).
 
 ## 4. Trùng lặp & rò rỉ
 
-Hash nội dung sau chuẩn hoá (bỏ HTML, chữ thường, gộp khoảng trắng).
+Hash = SHA-1 của văn bản đã làm sạch (bỏ `<br />`, gộp khoảng trắng; **giữ hoa/thường**), hàm `src.data.clean.text_hash` — giống Lab 3 để số đếm khớp Lab 3.
 
-**Quy tắc loại bỏ:**
-- Trùng trong train: giữ 1 bản.
-- Trùng giữa train và test: bỏ bản ở train, để test giữ nguyên 25.000.
+**Quy tắc loại bỏ** (Thư chốt 2026-11-23, theo đề xuất của Đại):
+- Trùng trong train/val: giữ 1 bản.
+- Trùng giữa train/val và test: bỏ bản ở train/val, để test giữ nguyên 25.000.
 - Trùng trong test: không xoá (test giữ nguyên); ghi số lượng vào bảng.
+- Báo thêm số test khi bỏ các review test trùng với train (so sánh được với Lab 3).
+
+Số đếm thử khi dựng repo (2026-11-23, `python -m src.data.eda`, chưa loại trùng — Bảo kiểm lại và điền bảng): train chính thức có 98 bản thừa, test có 201 bản thừa, **123 review test trùng với train** (khớp README Lab 3), 0 nhóm trùng khác nhãn.
 
 | Kiểm tra | Kết quả |
 | :--- | :--- |
@@ -68,7 +75,7 @@ Ghi lệnh sinh từng số vào [progress/DATA_PREP_STATUS.md](progress/DATA_PR
 
 ## 5. EDA
 
-Trong `notebooks/01_eda.ipynb`, chỉ trên train:
+Chạy `python -m src.data.eda` (hàm lấy từ Lab 3): ghi `experiments/results/eda/*.csv` và 3 hình vào `experiments/plots/eda/` cho **cả train, val, test** (hướng dẫn của cô: thống kê lại trên từng tập đã chia; dùng cột, histogram, không dùng biểu đồ tròn). Mặc định đếm theo **từ**; khi có tokenizer thì truyền `tokenize=` để đếm token. Nội dung:
 - Phân bố nhãn, phân bố `rating`.
 - Độ dài review (số từ): trung bình, trung vị, phân vị 90/95 — dùng để chọn `max_len` mặc định.
 - Từ phổ biến của từng lớp.

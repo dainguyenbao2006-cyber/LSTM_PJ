@@ -6,7 +6,7 @@
 - **Detailed Plan**: Header; Goals; Input/Output; How to do it; Detailed plan / gotchas; Verification gates; Links.
 - **References**: [OVERVIEW.md](../OVERVIEW.md), [PURPOSE.md](../PURPOSE.md) §7, [MODELS.md](../MODELS.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:02:29+07:00
 
 ---
 
@@ -14,11 +14,11 @@
 
 - **Title:** Định nghĩa mô hình
 - **Date created:** 2026-11-05
-- **Last updated:** 2026-11-05
+- **Last updated:** 2026-11-23
 - **Description:** Định nghĩa Embedding + LSTM/GRU/BiLSTM + Linear và nạp GloVe.
 - **Status:** To Do
-- **Owner:** TV2
-- **Tuần:** 2–3
+- **Owner:** Đại
+- **Hạn:** T2 23/11 tối (code + test); pilot sáng T3 24/11
 
 ## Goals / Purpose
 
@@ -28,7 +28,8 @@
 
 ## Input / Output
 
-- **Input:** vocab từ train, `data/glove/glove.6B.100d.txt`.
+- **Input:** `data/processed/reviews.parquet` của Bảo (cột `uid, split, text_clean, label, ...`, đã loại trùng, split Lab 3), `data/glove/glove.6B.100d.txt` (trên Kaggle dùng dataset GloVe có sẵn).
+- **Đại viết:** tokenizer (lowercase vì GloVe 6B uncased; giữ `not`, `n't`, `!`, `?`; không bỏ stopword), vocab chỉ từ train, Dataset/DataLoader (`src/data/tokenizer.py`, `src/data/vocab.py`, `src/data/dataset.py`).
 - **Output:** `src/models/rnn.py`, `src/models/glove.py`, `data/processed/glove_100d_vocab.npy`, `tests/test_models.py`.
 
 ## How to do it (general plan)

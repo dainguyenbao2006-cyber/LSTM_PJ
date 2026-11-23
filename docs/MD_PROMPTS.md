@@ -6,7 +6,7 @@
 - **Detailed Plan**: §0 Quy tắc chung; §1 Prompt khung; §2 Gốc repo; §3 `docs/` cấp 1; §4 Thư mục con của `docs/`; §5 README thư mục code/dữ liệu.
 - **References**: [README.md](README.md), [PURPOSE.md](PURPOSE.md). Bản cũ cho đồ án deepfake và 3 lab: `../../reference/MD_PROMPTS_deepfake_lab.md`.
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:00:45+07:00
 
 ---
 
@@ -14,7 +14,7 @@
 
 Thêm đoạn này vào đầu mọi prompt bên dưới:
 
-> Bạn là AI agent làm việc trong repo `DL-Project` (đề tài 3: phân loại cảm xúc IMDb bằng Embedding + LSTM, mở rộng GRU, BiLSTM, GloVe; nhóm 3 người TV1/TV2/TV3). Trước khi viết, đọc `docs/PURPOSE.md` và code/kết quả thật liên quan (`.py`, `.csv`, `.json`, log, checkpoint). Không bịa số liệu: mọi con số phải truy được về một file trong `experiments/results/` hoặc một lần chạy có thật; nếu chưa có, ghi `TBD` và nêu lệnh để tạo ra số đó. Số của mô hình RNN là mean ± std trên 3 seed (42, 123, 2025). Đầu file giữ header chuẩn gồm `Motivation/Background`, `Purpose`, `Overview Pipeline`, `Detailed Plan`, `References`, `Created`, `Last Updated` (ISO-8601, +07:00). Viết tiếng Việt, giữ nguyên thuật ngữ kỹ thuật tiếng Anh. Dùng đường dẫn tương đối. Liên kết chéo tới tài liệu liên quan. Test set chỉ dùng một lần cho số cuối. Không commit/push khi chưa được duyệt.
+> Bạn là AI agent làm việc trong repo `DL-Project` (đề tài 3: phân loại cảm xúc IMDb bằng Embedding + LSTM, mở rộng GRU, BiLSTM, GloVe; nhóm 3 người Thư, Bảo, Đại). Trước khi viết, đọc `docs/PURPOSE.md` và code/kết quả thật liên quan (`.py`, `.csv`, `.json`, log, checkpoint). Không bịa số liệu: mọi con số phải truy được về một file trong `experiments/results/` hoặc một lần chạy có thật; nếu chưa có, ghi `TBD` và nêu lệnh để tạo ra số đó. Số của mô hình RNN là mean ± std trên 3 seed (42, 123, 2025). Đầu file giữ header chuẩn gồm `Motivation/Background`, `Purpose`, `Overview Pipeline`, `Detailed Plan`, `References`, `Created`, `Last Updated` (ISO-8601, +07:00). Viết tiếng Việt, giữ nguyên thuật ngữ kỹ thuật tiếng Anh. Dùng đường dẫn tương đối. Liên kết chéo tới tài liệu liên quan. Test set chỉ dùng một lần cho số cuối. Không commit/push khi chưa được duyệt.
 
 ---
 
