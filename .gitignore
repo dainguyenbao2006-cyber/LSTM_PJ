@@ -4,7 +4,9 @@ __pycache__/
 .ipynb_checkpoints/
 
 data/raw/
-data/splits/
+# split train/val dùng chung (chỉ danh sách uid, chép từ Lab 3) được commit
+data/splits/*
+!data/splits/train_val_split.json
 data/glove/
 data/processed/
 *.tar.gz
