@@ -156,8 +156,3 @@ class BaselineRunner:
         return results
 
 
-if __name__ == "__main__":
-    runner = BaselineRunner()
-    m0a_res = runner.run_majority_baseline()
-    m0b_res = runner.run_tfidf_lr_baseline()
-    logger.info("Hoàn tất chạy baseline.")

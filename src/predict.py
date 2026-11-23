@@ -96,20 +96,3 @@ def get_default_predictor() -> SentimentPredictor:
     return SentimentPredictor(checkpoint_path=ckpt_path, vocab_path=vocab_path)
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Dự đoán cảm xúc của văn bản review.")
-    parser.add_argument("--text", type=str, required=True, help="Câu review cần dự đoán")
-    parser.add_argument("--checkpoint", type=str, default=None, help="Đường dẫn best.pt")
-    parser.add_argument("--vocab", type=str, default=None, help="Đường dẫn vocab.json")
-    args = parser.parse_args()
-
-    if args.checkpoint and args.vocab:
-        predictor = SentimentPredictor(checkpoint_path=args.checkpoint, vocab_path=args.vocab)
-    else:
-        predictor = get_default_predictor()
-
-    label, prob = predictor.predict(args.text)
-    label_str = "Positive (Tích cực)" if label == 1 else "Negative (Tiêu cực)"
-    print(f"\nReview: {args.text}")
-    print(f"Dự đoán: {label_str}")
-    print(f"Xác suất Positive: {prob * 100:.2f}%\n")

@@ -27,18 +27,12 @@ def build_glove_matrix(
     embed_dim: int = 100,
     output_path: Path | str | None = None,
     seed: int = 42,
+    allow_random: bool = False,      # chỉ True khi cố ý chạy thử không có GloVe
+    min_coverage: float = 0.80,      # dưới ngưỡng này coi như lỗi
 ) -> tuple[np.ndarray, float]:
-    """Trích xuất ma trận embedding từ file GloVe theo từ vựng của tập train.
-
-    Returns:
-        matrix: ma trận numpy shape [len(vocab), embed_dim]
-        coverage: tỷ lệ từ trong vocab có mặt trong GloVe (không tính <pad>)
-    """
     rng = np.random.RandomState(seed)
     matrix = rng.normal(loc=0.0, scale=0.1, size=(len(vocab), embed_dim)).astype(np.float32)
-
-    # <pad> luôn đặt bằng 0
-    matrix[vocab.pad_idx] = np.zeros(embed_dim, dtype=np.float32)
+    matrix[vocab.pad_idx] = 0.0
 
     glove_file = Path(glove_path) if glove_path else (data_dir("glove") / f"glove.6B.{embed_dim}d.txt")
 
@@ -47,28 +41,30 @@ def build_glove_matrix(
         logger.info(f"Đang đọc GloVe từ {glove_file}...")
         with glove_file.open("r", encoding="utf-8") as f:
             for line in f:
-                parts = line.strip().split(" ")
+                parts = line.rstrip().split(" ")
                 word = parts[0]
                 if word in vocab and word != vocab.pad_token:
-                    idx = vocab[word]
-                    try:
-                        vec = np.asarray(parts[1:], dtype=np.float32)
-                        if len(vec) == embed_dim:
-                            matrix[idx] = vec
-                            found_count += 1
-                    except ValueError:
-                        continue
+                    vec = np.asarray(parts[1:], dtype=np.float32)  # ValueError nếu file hỏng -> để nổi lên
+                    if len(vec) == embed_dim:
+                        matrix[vocab[word]] = vec
+                        found_count += 1
+    elif allow_random:
+        logger.warning(f"Không tìm thấy GloVe tại {glove_file}. Dùng random (allow_random=True).")
     else:
-        logger.warning(
-            f"Không tìm thấy file GloVe tại {glove_file}. Khởi tạo ngẫu nhiên toàn bộ trừ <pad>."
+        raise FileNotFoundError(
+            f"Không tìm thấy file GloVe: {glove_file}. "
+            "Tải glove.6B.zip và giải nén glove.6B.100d.txt vào data/glove/."
         )
 
-    # Tỷ lệ phủ không tính token <pad>
-    total_words = max(1, len(vocab) - 1)
-    coverage = float(found_count / total_words)
-    logger.info(
-        f"GloVe coverage: {found_count}/{total_words} từ ({coverage * 100:.2f}%)"
-    )
+    total_words = max(1, len(vocab) - 1)          # không tính <pad>
+    coverage = found_count / total_words
+    logger.info(f"GloVe coverage: {found_count}/{total_words} ({coverage*100:.2f}%)")
+
+    if not allow_random and coverage < min_coverage:
+        raise ValueError(
+            f"Coverage GloVe chỉ {coverage:.2%} (< {min_coverage:.0%}), "
+            "kiểm tra lại file GloVe hoặc tokenizer/vocab."
+        )
 
     if output_path is not None:
         out = Path(output_path)
@@ -76,22 +72,4 @@ def build_glove_matrix(
         np.save(out, matrix)
         logger.info(f"Đã lưu ma trận GloVe vào {out}")
 
-    return matrix, coverage
-
-
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-    parser = argparse.ArgumentParser(description="Trích xuất GloVe theo từ vựng.")
-    parser.add_argument("--vocab", type=str, default=None, help="Đường dẫn vocab.json")
-    parser.add_argument("--glove", type=str, default=None, help="Đường dẫn glove txt")
-    parser.add_argument("--dim", type=int, default=100, help="Số chiều GloVe (mặc định 100)")
-    parser.add_argument("--output", type=str, default=None, help="Đường dẫn lưu .npy")
-    args = parser.parse_args()
-
-    vocab_file = Path(args.vocab) if args.vocab else (data_dir("processed") / "vocab.json")
-    if not vocab_file.exists():
-        raise FileNotFoundError(f"Không tìm thấy vocab tại {vocab_file}")
-
-    v = Vocab.load(vocab_file)
-    out_file = Path(args.output) if args.output else (data_dir("processed") / f"glove_{args.dim}d_vocab.npy")
-    build_glove_matrix(v, glove_path=args.glove, embed_dim=args.dim, output_path=out_file)
+    return matrix, float(coverage)

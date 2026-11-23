@@ -282,21 +282,3 @@ def run_mcnemar_cli(
     return res
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Đánh giá mô hình trên split test hoặc val.")
-    parser.add_argument("--checkpoint", type=str, required=True, help="Đường dẫn file best.pt")
-    parser.add_argument("--vocab", type=str, required=True, help="Đường dẫn file vocab.json")
-    parser.add_argument("--split", type=str, default="test", help="test hoặc val")
-    parser.add_argument("--data-path", type=str, default=None, help="Đường dẫn reviews.parquet")
-    parser.add_argument("--output-dir", type=str, default=None, help="Thư mục xuất kết quả")
-    parser.add_argument("--device", type=str, default=None, help="cpu hoặc cuda")
-    args = parser.parse_args()
-
-    evaluate_split(
-        checkpoint_path=args.checkpoint,
-        vocab_path=args.vocab,
-        split=args.split,
-        data_path=args.data_path,
-        output_dir=args.output_dir,
-        device_name=args.device,
-    )

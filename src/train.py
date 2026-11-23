@@ -346,23 +346,3 @@ def run_training(
         "total_time": total_training_time,
         "summary": summary,
     }
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Huấn luyện mô hình RNN phân loại cảm xúc.")
-    parser.add_argument("--config", type=str, required=True, help="Đường dẫn file cấu hình YAML")
-    parser.add_argument("--seed", type=int, default=42, help="Seed ngẫu nhiên (mặc định 42)")
-    parser.add_argument("--exp-name", type=str, default=None, help="Tên thí nghiệm ghi đè")
-    parser.add_argument("--sample-size", type=int, default=None, help="Số mẫu chạy thử nghiệm nhanh")
-    parser.add_argument("--epochs", type=int, default=None, help="Số epochs ghi đè")
-    parser.add_argument("--device", type=str, default=None, help="cpu hoặc cuda")
-    args = parser.parse_args()
-
-    run_training(
-        config_path=args.config,
-        seed=args.seed,
-        exp_name_override=args.exp_name,
-        sample_size=args.sample_size,
-        epochs_override=args.epochs,
-        device_name=args.device,
-    )
