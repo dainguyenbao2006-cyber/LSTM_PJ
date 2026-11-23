@@ -6,7 +6,7 @@
 - **Detailed Plan**: §1 Nhánh; §2 Commit; §3 Pull request; §4 Điều cấm; §5 Các bước làm một task.
 - **References**: [../../README.md](../../README.md), [../TASKS.md](../TASKS.md)
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-23T10:36:35+07:00
+- **Last Updated**: 2026-11-23T10:40:53+07:00
 
 ---
 
@@ -38,6 +38,7 @@ Theo Conventional Commits: `<type>(<scope>): <mô tả ngắn>` — **bắt bu�
 ## 3. Pull request
 
 - Chạy `python -m pytest` trước khi mở PR; ghi kết quả vào mô tả.
+- **Tiêu đề PR** cùng định dạng commit (§2): `<type>(<scope>): <mô tả>`, ví dụ `feat(data): loại review trùng`, `exp(train): LSTM 3 seed`. PR gồm nhiều loại việc thì lấy type/scope của phần chính.
 - Mô tả PR theo mẫu:
 
 ```
