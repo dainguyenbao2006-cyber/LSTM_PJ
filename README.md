@@ -6,7 +6,7 @@
 - **Detailed Plan**: §1 Mục tiêu; §2 Cấu trúc thư mục; §3 Cài đặt; §4 Lệnh chạy; §5 Kết quả; §6 Tài liệu.
 - **References**: [docs/PURPOSE.md](docs/PURPOSE.md), [docs/README.md](docs/README.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-23T10:02:29+07:00
+- **Last Updated**: 2026-11-23T10:13:39+07:00
 
 ---
 
@@ -78,4 +78,4 @@ TBD — điền từ `experiments/results/` sau khi chạy (mean ± std 3 seed).
 
 ## 6. Tài liệu
 
-Mục lục: [docs/README.md](docs/README.md). Prompt để AI tạo/cập nhật từng file `.md`: [docs/MD_PROMPTS.md](docs/MD_PROMPTS.md).
+Chia task và trạng thái: [docs/TASKS.md](docs/TASKS.md). Mục lục: [docs/README.md](docs/README.md). Prompt để AI tạo/cập nhật từng file `.md`: [docs/MD_PROMPTS.md](docs/MD_PROMPTS.md).

@@ -6,7 +6,7 @@
 - **Detailed Plan**: §1 Roadmap theo phase; §2 Phần mở rộng; §3 Kiến trúc; §4 Checkpoint; §5 Ràng buộc phần cứng.
 - **References**: [PURPOSE.md](PURPOSE.md) §10, [phases/](phases/), [progress/](progress/).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-23T10:02:29+07:00
+- **Last Updated**: 2026-11-23T10:13:39+07:00
 
 ---
 
@@ -32,6 +32,25 @@ Hạn nộp: **thứ 4, 25/11/2026, trước 14:00**. Mốc theo [PURPOSE.md](PU
 | — | Grid nhỏ M1 (hidden 128/256 × dropout 0,3/0,5, 1 seed) — chỉ khi pilot M1 < 85% val | A, có điều kiện | — | Đại | T3 sáng | To Do |
 | E1 | Attention pooling trên BiLSTM (đối chiếu với occlusion, không dùng attention một mình để giải thích) | B | EXP-06 | Đại | T3 tối, nếu đạt mốc dừng 14:00 | To Do |
 | E4 | Đánh giá chéo Rotten Tomatoes | C — để sau | EXP-09 | — | Ghi vào "Hướng phát triển" | Để sau |
+
+## 2b. Các module (12)
+
+Task chi tiết: [TASKS.md](TASKS.md). ⚠️ = phần nhóm trình bày trước bị thiếu, bắt buộc có section riêng trong notebook.
+
+| # | Module | File | Người | Trạng thái |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | Data: tải, làm sạch, split | `src/data/download.py`, `clean.py`, `split.py` | Bảo | Đã có (chép Lab 3) |
+| 2 | Prepare: loại trùng → `reviews.parquet` | `src/data/prepare.py` | Bảo | To Do |
+| 3 | **EDA** ⚠️ | `src/data/eda.py` | Bảo | Hàm đã có; chạy lại sau loại trùng |
+| 4 | Tokenizer, vocab, Dataset | `src/data/tokenizer.py`, `vocab.py`, `dataset.py` | Đại | To Do |
+| 5 | Model: `SentimentRNN` + GloVe | `src/models/rnn.py`, `glove.py` | Đại | To Do |
+| 6 | Baseline: Majority, TF-IDF + LR | `src/models/baseline.py` | Bảo | To Do |
+| 7 | Train: vòng train, early stopping (val acc), checkpoint | `src/train.py`, `src/training/` | Đại | To Do |
+| 8 | **Monitor training** ⚠️ | `src/training/monitor.py` | Đại | To Do |
+| 9 | **Evaluation** ⚠️ | `src/evaluate.py`, `src/eval/metrics.py` | Đại | To Do |
+| 10 | **Error analysis** + giải thích ⚠️ | `src/eval/error_analysis.py`, `explain.py` | Thư | To Do |
+| 11 | Predict + demo Gradio | `src/predict.py`, `src/demo/app.py` | Bảo | To Do |
+| 12 | Notebook trình bày (tiếng Việt) | `notebooks/presentation.ipynb` | Thư | To Do |
 
 ## 3. Kiến trúc
 

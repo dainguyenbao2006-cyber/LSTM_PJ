@@ -6,7 +6,7 @@
 - **Detailed Plan**: §1 Bảng mô hình; §2 Kiến trúc chung; §3 Checkpoint & load lại; §4 Mô hình mở rộng.
 - **References**: [PURPOSE.md](PURPOSE.md) §7, [phases/MODEL.md](phases/MODEL.md), `src/models/`.
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:13:39+07:00
 
 ---
 
@@ -45,7 +45,7 @@ nn.Embedding(V, 100, padding_idx=0)
 ```
 experiments/checkpoints/<exp>/
 ├── vocab.json            # xây từ train, giống nhau cho mọi seed
-└── seed_<s>/best.pt      # state_dict + config, chọn theo val loss
+└── seed_<s>/best.pt      # state_dict + config, chọn theo val acc
 ```
 
 - `best.pt` lưu `state_dict` cùng config; load lại cần `best.pt` + `vocab.json`, không cần train.

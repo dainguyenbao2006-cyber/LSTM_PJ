@@ -6,7 +6,7 @@
 - **Detailed Plan**: §1–§10 theo mẫu đăng ký; §11 Yêu cầu báo cáo cuối kỳ; §12 Định nghĩa "xong".
 - **References**: [OVERVIEW.md](OVERVIEW.md), [DATA.md](DATA.md), [MODELS.md](MODELS.md), [REPORT_CHECKLIST.md](REPORT_CHECKLIST.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-23T10:02:29+07:00
+- **Last Updated**: 2026-11-23T10:13:39+07:00
 
 ---
 
@@ -105,7 +105,7 @@ Chi tiết và giao thức chia dữ liệu: [DATA.md](DATA.md).
 | BiLSTM | LSTM 2 chiều, ghép hidden 2 chiều → Linear(256, 1) |
 | BiLSTM + GloVe | Khởi tạo embedding từ GloVe 100d; so sánh đóng băng với fine-tune |
 
-- **Huấn luyện:** BCEWithLogitsLoss, Adam (lr 1e-3), gradient clipping 5.0, early stopping theo val loss (patience 3), dùng `pack_padded_sequence` để LSTM bỏ qua phần padding.
+- **Huấn luyện:** BCEWithLogitsLoss, Adam (lr 1e-3), gradient clipping 5.0, early stopping và chọn checkpoint theo **val accuracy** (Thư chốt 2026-11-23; căn cứ Lab 3: val loss thấp nhất ở epoch 1 rồi tăng, trong khi val acc còn tăng tới epoch 3–5); patience và trần epoch chốt sau pilot, dùng `pack_padded_sequence` để LSTM bỏ qua phần padding.
 - **Chọn mô hình:** mọi lựa chọn siêu tham số và checkpoint đều dựa trên **tập validation**. Tập test chỉ chạy **một lần** ở cuối để tránh "nhìn trộm" tập test.
 - **Giải thích mô hình:** occlusion (che từng từ rồi đo xác suất thay đổi bao nhiêu) hoặc gradient × embedding, để kiểm tra mô hình có học đúng từ mang cảm xúc hay học "đường tắt" như tên diễn viên hay độ dài review.
 - **Thí nghiệm** (mỗi bước đổi một biến): [experiments/README.md](experiments/README.md).

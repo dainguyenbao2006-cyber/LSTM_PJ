@@ -6,7 +6,7 @@
 - **Detailed Plan**: §1 Tài liệu cốt lõi; §2 Thư mục con.
 - **References**: [PURPOSE.md](PURPOSE.md), [OVERVIEW.md](OVERVIEW.md).
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-05T23:23:02+07:00
+- **Last Updated**: 2026-11-23T10:13:39+07:00
 
 ---
 
@@ -16,6 +16,7 @@
 | :--- | :--- |
 | [PURPOSE.md](PURPOSE.md) | Đăng ký đề tài (10 mục), phân công, mốc, yêu cầu báo cáo — **nguồn sự thật** |
 | [OVERVIEW.md](OVERVIEW.md) | Roadmap theo phase, trạng thái, checkpoint tốt nhất |
+| [TASKS.md](TASKS.md) | **Chia task từng người, file bàn giao, đã làm / chưa làm** |
 | [DATA.md](DATA.md) | Đặc tả IMDb, giao thức split, kiểm tra rò rỉ, GloVe |
 | [MODELS.md](MODELS.md) | Danh mục mô hình M0a–M4b (+ mở rộng E1–E3), số tham số, checkpoint |
 | [REPORT_CHECKLIST.md](REPORT_CHECKLIST.md) | Yêu cầu báo cáo → artifact → trạng thái |

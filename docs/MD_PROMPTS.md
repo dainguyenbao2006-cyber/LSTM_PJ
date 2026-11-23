@@ -6,7 +6,7 @@
 - **Detailed Plan**: §0 Quy tắc chung; §1 Prompt khung; §2 Gốc repo; §3 `docs/` cấp 1; §4 Thư mục con của `docs/`; §5 README thư mục code/dữ liệu.
 - **References**: [README.md](README.md), [PURPOSE.md](PURPOSE.md). Bản cũ cho đồ án deepfake và 3 lab: `../../reference/MD_PROMPTS_deepfake_lab.md`.
 - **Created**: 2026-11-05T11:21:04+07:00
-- **Last Updated**: 2026-11-23T10:00:45+07:00
+- **Last Updated**: 2026-11-23T10:13:39+07:00
 
 ---
 
@@ -103,7 +103,7 @@ Chuỗi thí nghiệm, mỗi bước đổi một biến:
 - **`EXP_02_LSTM.md`** — Embedding ngẫu nhiên + LSTM 1 chiều theo đề bài. (TV2)
 - **`EXP_03_GRU.md`** — Đổi LSTM → GRU. Thêm vào prompt: "so sánh số tham số và thời gian/epoch với EXP_02". (TV2)
 - **`EXP_04_BILSTM.md`** — Đổi 1 chiều → 2 chiều. Thêm: "giải thích vì sao đọc ngược giúp/không giúp với review dài". (TV2)
-- **`EXP_05_BILSTM_GLOVE.md`** — Thay embedding ngẫu nhiên bằng GloVe 100d, hai biến thể frozen và fine-tune. Thêm: "ghi tỷ lệ phủ vocab của GloVe; so sánh tốc độ hội tụ (epoch tới val loss tốt nhất)". (TV2)
+- **`EXP_05_BILSTM_GLOVE.md`** — Thay embedding ngẫu nhiên bằng GloVe 100d, hai biến thể frozen và fine-tune. Thêm: "ghi tỷ lệ phủ vocab của GloVe; so sánh tốc độ hội tụ (epoch tới val acc tốt nhất)". (TV2)
 - Mở rộng, nếu kịp: **`EXP_06_ATTENTION.md`** (attention pooling, trực quan trọng số), **`EXP_07_MAXLEN.md`** (`max_len` 200/400/600), **`EXP_08_DISTILBERT.md`** (mốc Transformer), **`EXP_09_ROTTEN_TOMATOES.md`** (đánh giá chéo, không train lại).
 - **`README.md`** (1.7) — chỉ mục và bảng kết quả M0a–M4b so với baseline.
 - **`EXPERIMENT_TEMPLATE.md`** — Mẫu (1.5).
