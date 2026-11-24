@@ -98,6 +98,7 @@ class SentimentRNN(nn.Module):
                 embedding_dim=embed_dim,
                 padding_idx=padding_idx,
             )
+            self.embedding.weight.requires_grad = not freeze
 
         # 2. Recurrent layer
         if self.rnn_type == "lstm":

@@ -52,6 +52,13 @@ class BaselineRunner:
             results[f"{split_name}_metrics"] = metrics
             logger.info(f"M0a {split_name} Acc: {metrics['accuracy'] * 100:.2f}%")
 
+            out_dir = Path("experiments/results/majority")
+            out_dir.mkdir(parents=True, exist_ok=True)
+            (out_dir / f"{split_name}_metrics.json").write_text(
+                json.dumps(metrics, indent=2, ensure_ascii=False),
+                encoding="utf-8",
+            )
+
         return results
 
     def run_tfidf_lr_baseline(

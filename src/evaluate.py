@@ -68,7 +68,9 @@ def evaluate_split(
     df = load_imdb_split_data(parquet_path=data_path, split=split)
     logger.info(f"Đánh giá {len(df)} mẫu từ split '{split}'...")
 
-    max_len = ckpt.get("config", {}).get("data", {}).get("max_len", 250)
+    data_cfg = ckpt.get("config", {}).get("data", {})
+    max_len = data_cfg.get("max_len", 250)
+    truncation = data_cfg.get("truncation", "post")
     dataset = IMDbDataset(
         texts=df["text_clean"],
         labels=df["label"],
@@ -76,6 +78,7 @@ def evaluate_split(
         ratings=df["rating"],
         vocab=vocab,
         max_len=max_len,
+        truncation=truncation,
     )
     dataloader = create_dataloader(dataset, batch_size=batch_size, shuffle=False)
 
@@ -153,10 +156,13 @@ def evaluate_split(
     metrics_json_path.write_text(json.dumps(results_data, indent=2, ensure_ascii=False), encoding="utf-8")
     logger.info(f"Đã lưu metrics tại {metrics_json_path}")
 
-    # 9. Vẽ Confusion Matrix và ROC Curve
+    # 9. Vẽ Confusion Matrix và ROC Curve (gắn tên seed để tránh ghi đè giữa các seed)
     plots_dir = experiment_dir("plots", "eval")
     plots_dir.mkdir(parents=True, exist_ok=True)
     exp_stem = ckpt_file.parts[-3] if len(ckpt_file.parts) >= 3 else "model"
+    seed_stem = ckpt_file.parent.name if ckpt_file.parent.name.startswith("seed_") else None
+    plot_prefix = f"{exp_stem}_{seed_stem}" if seed_stem else exp_stem
+    title_suffix = f" ({seed_stem}, {split})" if seed_stem else f" ({split})"
 
     # CM plot
     fig, ax = plt.subplots(figsize=(6, 5))
@@ -166,8 +172,8 @@ def evaluate_split(
     ])
     disp = ConfusionMatrixDisplay(confusion_matrix=cm_arr, display_labels=["Negative", "Positive"])
     disp.plot(ax=ax, cmap="Blues", values_format="d")
-    ax.set_title(f"Confusion Matrix: {exp_stem} ({split})", fontweight="bold")
-    cm_plot_path = plots_dir / f"{exp_stem}_{split}_cm.png"
+    ax.set_title(f"Confusion Matrix: {exp_stem}{title_suffix}", fontweight="bold")
+    cm_plot_path = plots_dir / f"{plot_prefix}_{split}_cm.png"
     plt.tight_layout()
     plt.savefig(cm_plot_path, dpi=150)
     plt.close(fig)
@@ -178,12 +184,12 @@ def evaluate_split(
     auc_val = metrics.get("roc_auc", 0.0)
     ax.plot(fpr, tpr, color="#1f77b4", lw=2, label=f"ROC (AUC = {auc_val:.4f})")
     ax.plot([0, 1], [0, 1], color="grey", linestyle="--")
-    ax.set_title(f"ROC Curve: {exp_stem} ({split})", fontweight="bold")
+    ax.set_title(f"ROC Curve: {exp_stem}{title_suffix}", fontweight="bold")
     ax.set_xlabel("False Positive Rate")
     ax.set_ylabel("True Positive Rate")
     ax.legend(loc="lower right")
     ax.grid(True, linestyle=":", alpha=0.6)
-    roc_plot_path = plots_dir / f"{exp_stem}_{split}_roc.png"
+    roc_plot_path = plots_dir / f"{plot_prefix}_{split}_roc.png"
     plt.tight_layout()
     plt.savefig(roc_plot_path, dpi=150)
     plt.close(fig)
@@ -196,25 +202,57 @@ def compare_all_models(
     results_base: Path | str = "experiments/results",
     split: str = "test",
 ) -> pd.DataFrame:
-    """Tạo bảng so sánh tổng hợp mọi mô hình (comparison_<split>.csv)."""
+    """Tạo bảng so sánh tổng hợp mọi mô hình (comparison_<split>.csv), bao gồm cả Baseline và thời gian train."""
     base = Path(results_base)
     rows: list[dict[str, Any]] = []
 
-    for exp_dir in base.iterdir():
+    for exp_dir in sorted(base.iterdir()):
         if not exp_dir.is_dir():
             continue
         exp_name = exp_dir.name
 
-        # Tìm các seed metrics
+        # 1. Trường hợp mô hình đơn (không chia seed_*, ví dụ baseline TF-IDF + LR hoặc majority)
+        direct_metric_file = exp_dir / f"{split}_metrics.json"
+        seed_dirs = sorted(exp_dir.glob("seed_*"))
+        if not seed_dirs and direct_metric_file.exists():
+            raw = json.loads(direct_metric_file.read_text(encoding="utf-8"))
+            m = raw.get("metrics", raw)
+            acc = m.get("accuracy")
+            f1 = m.get("macro_f1")
+            auc = m.get("roc_auc")
+            if acc is not None:
+                rows.append(
+                    {
+                        "model": exp_name,
+                        "accuracy": f"{acc * 100:.2f}%",
+                        "macro_f1": f"{f1:.4f}" if f1 is not None else "—",
+                        "roc_auc": f"{auc:.4f}" if auc is not None else "—",
+                        "total_params": "0" if exp_name == "majority" else "—",
+                        "trainable_params": "0" if exp_name == "majority" else "—",
+                        "train_time_s": "—",
+                        "latency_ms_sample": "—",
+                    }
+                )
+            continue
+
+        # 2. Trường hợp mô hình RNN nhiều seed
         seed_accs: list[float] = []
         seed_f1s: list[float] = []
         seed_aucs: list[float] = []
+        seed_latencies: list[float] = []
+        seed_train_times: list[float] = []
         total_p = None
         trainable_p = None
-        latency = None
 
-        for s_dir in exp_dir.glob("seed_*"):
+        for s_dir in seed_dirs:
+            # Với split == 'val', đọc metrics.json từ training nếu chưa có val_metrics.json
             m_file = s_dir / f"{split}_metrics.json"
+            train_m_file = s_dir / "metrics.json"
+            if train_m_file.exists():
+                t_data = json.loads(train_m_file.read_text(encoding="utf-8"))
+                if t_data.get("total_train_seconds") is not None:
+                    seed_train_times.append(float(t_data["total_train_seconds"]))
+
             if m_file.exists():
                 data = json.loads(m_file.read_text(encoding="utf-8"))
                 m = data["metrics"]
@@ -222,27 +260,60 @@ def compare_all_models(
                 seed_f1s.append(m["macro_f1"])
                 if m.get("roc_auc") is not None:
                     seed_aucs.append(m["roc_auc"])
+                lat = data.get("speed", {}).get("latency_ms_per_sample")
+                if lat is not None:
+                    seed_latencies.append(float(lat))
                 if total_p is None:
                     total_p = data.get("parameters", {}).get("total")
                     trainable_p = data.get("parameters", {}).get("trainable")
-                    latency = data.get("speed", {}).get("latency_ms_per_sample")
+            elif split == "val" and train_m_file.exists():
+                t_data = json.loads(train_m_file.read_text(encoding="utf-8"))
+                if t_data.get("best_val_acc") is not None:
+                    seed_accs.append(float(t_data["best_val_acc"]))
+                if t_data.get("val_f1_at_best") is not None:
+                    seed_f1s.append(float(t_data["val_f1_at_best"]))
+                if total_p is None:
+                    total_p = t_data.get("parameters", {}).get("total")
+                    trainable_p = t_data.get("parameters", {}).get("trainable")
 
         if seed_accs:
             acc_mean = float(np.mean(seed_accs))
             acc_std = float(np.std(seed_accs))
-            f1_mean = float(np.mean(seed_f1s))
-            f1_std = float(np.std(seed_f1s))
+            f1_mean = float(np.mean(seed_f1s)) if seed_f1s else None
+            f1_std = float(np.std(seed_f1s)) if seed_f1s else None
             auc_mean = float(np.mean(seed_aucs)) if seed_aucs else None
+            lat_mean = round(float(np.mean(seed_latencies)), 3) if seed_latencies else None
+            train_time_mean = round(float(np.mean(seed_train_times)), 1) if seed_train_times else None
+
+            # Xuất <split>_summary.json cho từng mô hình (theo docs/phases/EVAL.md)
+            if split == "test":
+                summary_payload = {
+                    "exp_name": exp_name,
+                    "split": split,
+                    "n_seeds": len(seed_accs),
+                    "accuracy": {"mean": round(acc_mean, 4), "std": round(acc_std, 4)},
+                    "macro_f1": {"mean": round(f1_mean, 4), "std": round(f1_std, 4)} if f1_mean is not None else None,
+                    "roc_auc": {"mean": round(auc_mean, 4)} if auc_mean is not None else None,
+                    "total_params": total_p,
+                    "trainable_params": trainable_p,
+                    "train_time_s_mean": train_time_mean,
+                    "latency_ms_sample_mean": lat_mean,
+                }
+                (exp_dir / f"{split}_summary.json").write_text(
+                    json.dumps(summary_payload, indent=2, ensure_ascii=False),
+                    encoding="utf-8",
+                )
 
             rows.append(
                 {
                     "model": exp_name,
                     "accuracy": f"{acc_mean * 100:.2f} ± {acc_std * 100:.2f}%",
-                    "macro_f1": f"{f1_mean:.4f} ± {f1_std:.4f}",
-                    "roc_auc": f"{auc_mean:.4f}" if auc_mean else "—",
-                    "total_params": f"{total_p:,}" if total_p else "—",
-                    "trainable_params": f"{trainable_p:,}" if trainable_p else "—",
-                    "latency_ms_sample": latency if latency else "—",
+                    "macro_f1": f"{f1_mean:.4f} ± {f1_std:.4f}" if f1_mean is not None else "—",
+                    "roc_auc": f"{auc_mean:.4f}" if auc_mean is not None else "—",
+                    "total_params": f"{total_p:,}" if total_p is not None else "—",
+                    "trainable_params": f"{trainable_p:,}" if trainable_p is not None else "—",
+                    "train_time_s": f"{train_time_mean:.1f}" if train_time_mean is not None else "—",
+                    "latency_ms_sample": lat_mean if lat_mean is not None else "—",
                 }
             )
 
